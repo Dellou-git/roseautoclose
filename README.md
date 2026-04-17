@@ -22,6 +22,48 @@ Instead of manually opening Task Manager and killing `Rose.exe`, this script doe
 
 ---
 
+## 📦 Installation (via Git)
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/Dellou-git/roseautoclose.git
+```
+
+Or download as ZIP:
+
+* Click **Code → Download ZIP** on GitHub and extract it
+
+---
+
+### 2. Navigate into the folder
+
+```bash
+cd roseautoclose
+```
+
+---
+
+### 3. Move files to a permanent location (recommended)
+
+Example:
+
+```
+C:\Scripts\LoLRoseWatcher\
+```
+
+---
+
+## 🔄 Updating the Script
+
+To pull the latest updates:
+
+```bash
+git pull
+```
+
+---
+
 ## 🚀 Setup Instructions
 
 1. Place both files somewhere permanent, for example:
@@ -74,7 +116,7 @@ You can tweak:
 set "INTERVAL=5"
 ```
 
-* Change `5` to adjust how often (in seconds) the check runs - can reduce load
+* Change `5` to adjust how often (in seconds) the check runs — can reduce load
 
 ---
 
@@ -96,6 +138,8 @@ schtasks /delete /tn "LoL Rose Watcher" /f
 ## 💡 Why This Exists
 
 Due to a bug where **Rose falsely detects an already running process**, it prevents startup.
+
+This mainly happens, when you run rose, play and then close rose / league. This won't kill the process rose.exe which will cause issues on the next start.
 
 This script ensures:
 
