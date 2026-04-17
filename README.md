@@ -22,54 +22,6 @@ Instead of manually opening Task Manager and killing `Rose.exe`, this script doe
 
 ---
 
-## 📂 Files
-
-### 1. `closerose.bat`
-
-Main logic script:
-
-```bat
-@echo off
-setlocal
-
-set "TASKNAME=LoL Rose Watcher"
-set "TARGET=LeagueClient.exe"
-set "CLOSE=Rose.exe"
-set "INTERVAL=5"
-
-:: Register scheduler task to run script in background every logon
-schtasks /query /tn "%TASKNAME%" >nul 2>&1
-if %errorlevel% neq 0 (
-    schtasks /create /tn "%TASKNAME%" /tr "wscript.exe \"C:\path\to\vbsfile\taskscheduler.vbs\"" /sc onlogon /rl highest /f >nul 
-    :: Requires admin rights
-    exit /b
-)
-
-:loop
-tasklist /FI "IMAGENAME eq %TARGET%" 2>NUL | find /I "%TARGET%" >NUL
-if errorlevel 1 (
-    tasklist /FI "IMAGENAME eq %CLOSE%" 2>NUL | find /I "%CLOSE%" >NUL
-    if not errorlevel 1 (
-        taskkill /IM "%CLOSE%" /F >NUL
-    )
-)
-
-timeout /t %INTERVAL% /nobreak >NUL
-goto loop
-```
-
----
-
-### 2. `taskscheduler.vbs`
-
-Runs the batch script invisibly:
-
-```vbscript
-CreateObject("Wscript.Shell").Run "cmd /c ""C:\path\to\your\script\closerose.bat""", 0, False
-```
-
----
-
 ## 🚀 Setup Instructions
 
 1. Place both files somewhere permanent, for example:
